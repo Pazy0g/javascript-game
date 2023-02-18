@@ -40,16 +40,15 @@ class Sprite {
     c.fillRect(this.position.x, this.position.y, this.width, this.height);
 
     // attack box
-    // if (this.isAttacking)
-    // {
-    c.fillStyle = "blue";
-    c.fillRect(
-      this.attackBox.position.x,
-      this.attackBox.position.y,
-      this.attackBox.width,
-      this.attackBox.height
-    );
-    // }
+    if (this.isAttacking) {
+      c.fillStyle = "blue";
+      c.fillRect(
+        this.attackBox.position.x,
+        this.attackBox.position.y,
+        this.attackBox.width,
+        this.attackBox.height
+      );
+    }
   }
 
   update() {
@@ -131,15 +130,15 @@ const keys = {
 //* Adding a function to detect the collisions between the player and the enemies
 // this makes the code more readable instead of writing it into the if statement within the animate loop function
 function rectangularCollision({ rectangle1, rectangle2 }) {
-  return(
-  rectangle1.attackBox.position.x + rectangle1.attackBox.width >=
-    rectangle2.position.x &&
+  return (
+    rectangle1.attackBox.position.x + rectangle1.attackBox.width >=
+      rectangle2.position.x &&
     rectangle1.attackBox.position.x <=
       rectangle2.position.x + rectangle2.width &&
     rectangle1.attackBox.position.y + rectangle1.attackBox.height >=
       rectangle2.position.y &&
-    rectangle1.attackBox.position.y <=
-      rectangle2.position.y + rectangle2.height)
+    rectangle1.attackBox.position.y <= rectangle2.position.y + rectangle2.height
+  );
 }
 
 //! Function for animating both players and enemies
@@ -171,24 +170,24 @@ function animate() {
   if (
     rectangularCollision({
       rectangle1: player,
-      rectangle2: enemy
+      rectangle2: enemy,
     }) &&
     player.isAttacking
   ) {
     player.isAttacking = false;
-    console.log('collision');
+    console.log("collision");
   }
 
   if (
     rectangularCollision({
       rectangle1: enemy,
-      rectangle2: player
+      rectangle2: player,
     }) &&
     enemy.isAttacking
   ) {
     enemy.isAttacking = false;
 
-    console.log('collision2');
+    console.log("collision2");
   }
 }
 animate();
@@ -233,10 +232,9 @@ window.addEventListener("keydown", (event) => {
       break;
 
     case "ArrowDown":
-      enemy.isAttacking = true;
+      enemy.attack();
       break;
   }
-  console.log(event.key);
 });
 
 //* Released keys
@@ -260,6 +258,9 @@ window.addEventListener("keyup", (event) => {
     case "ArrowLeft":
       keys.ArrowLeft.pressed = false;
       break;
+
+    case "ArrowDown":
+      enemy.isAttacking = false;
+      break;
   }
-  
 });

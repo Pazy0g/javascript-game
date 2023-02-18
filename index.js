@@ -1,13 +1,22 @@
 const canvas = document.querySelector('canvas');
 const c = canvas.getContext('2d');
 
+
+// * Setting default values for canvas properties
 canvas.width = 1024;
 canvas.height = 576;
 
+// filling the canvas with black background
 c.fillRect(0,0, canvas.width, canvas.height);
 
-//! Creating player and enemies objects
+
+//* Adding gravity to prevent models from falling off the screen
 const gravity = 0.7
+
+//? Might add a custom property to prevent the model from jumping off the screen
+
+//! Creating model objects for both players and enemies
+//* Mother class for models
 class Sprite {
     constructor ({position, velocity}){
         this.position = position;
@@ -15,10 +24,10 @@ class Sprite {
         this.height = 150;
         this.lastKey
     }
+
     draw(){
         c.fillStyle = 'red';
         c.fillRect(this.position.x, this.position.y,50, this.height);
-
     }
 
     update(){
@@ -33,6 +42,8 @@ class Sprite {
     }
 }
 
+
+//! Creating player object with default values for {Velocity and Position}
 const player = new Sprite({
     position:{
     x: 0,
@@ -45,7 +56,7 @@ velocity: {
 });
 
 
-
+//! Creating enemy objects with default values for {Velocity and Position}
 const enemy = new Sprite({
     position:{
     
@@ -60,10 +71,9 @@ const enemy = new Sprite({
 
 
 enemy.draw();
-console.log(player);
-
 
 //! Key pressed object
+//* Allowing the use of the keyboard to control models
 const keys = {
     q: {
         pressed: false
@@ -115,10 +125,11 @@ function animate (){
 animate();
 
 
-// ! Making player and enemies moving
+// ! Making player and enemies capable of movement using [addEventListener] functions on key pressed and release 
+
+//* Pressed keys
 window.addEventListener('keydown', (event) => {
     
-
     switch(event.key){
         case 'd':
             keys.d.pressed = true;
@@ -153,6 +164,7 @@ window.addEventListener('keydown', (event) => {
     console.log(event.key);
 })
 
+//* Released keys
 window.addEventListener('keyup', (event) => {
     switch(event.key){
         case 'd':

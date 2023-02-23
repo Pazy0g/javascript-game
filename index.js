@@ -10,6 +10,8 @@ c.fillRect(0, 0, canvas.width, canvas.height);
 
 //* Adding gravity to prevent models from falling off the screen
 const gravity = 0.7;
+
+// * Adding background image to the scene
 const background = new Sprite({
   position: {
     x: 0,
@@ -18,7 +20,6 @@ const background = new Sprite({
   imageSrc: 'assets/background.png'
 
 })
-//? Might add a custom property to prevent the model from jumping off the screen
 
 //! Creating model objects for both players and enemies
 //! Creating player object with default values for {Velocity, Position and offset}
@@ -75,47 +76,6 @@ const keys = {
     pressed: false,
   },
 };
-
-//* Adding a function to detect the collisions between the player and the enemies
-// this makes the code more readable instead of writing it into the if statement within the animate loop function
-function rectangularCollision({ rectangle1, rectangle2 }) {
-  return (
-    rectangle1.attackBox.position.x + rectangle1.attackBox.width >=
-    rectangle2.position.x &&
-    rectangle1.attackBox.position.x <=
-    rectangle2.position.x + rectangle2.width &&
-    rectangle1.attackBox.position.y + rectangle1.attackBox.height >=
-    rectangle2.position.y &&
-    rectangle1.attackBox.position.y <= rectangle2.position.y + rectangle2.height
-  );
-}
-
-function determineWinner({ player, enemy, timerId }) {
-  clearTimeout(timerId);
-  document.querySelector("#displayText").style.display = "flex";
-
-  if (player.health === enemy.health) {
-    document.querySelector("#displayText").innerHTML = "Tie";
-  } else if (player.health > enemy.health) {
-    document.querySelector("#displayText").innerHTML = "Joueur 1 Gagne!";
-  } else if (player.health < enemy.health) {
-    document.querySelector("#displayText").innerHTML = "Joueur 2 Gagne!";
-  }
-}
-
-let timer = 60;
-let timerId;
-function decreaseTimer() {
-  if (timer > 0) {
-    timerId = setTimeout(decreaseTimer, 1000);
-    timer--;
-    document.querySelector("#timer").innerHTML = timer;
-  }
-
-  if (timer === 0) {
-    determineWinner({ player, enemy, timerId });
-  }
-}
 
 decreaseTimer();
 

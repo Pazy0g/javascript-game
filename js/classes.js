@@ -8,20 +8,19 @@ class Sprite {
         this.scale = scale;
         this.framesMax = framesMax;
 
-
     }
     draw() {
         c.drawImage(
-            this.image, 
+            this.image,
             0,
             0,
             this.image.width / this.framesMax,
             this.image.height,
-            this.position.x, 
-            this.position.y, 
-            (this.image.width /this.framesMax) * this.scale, 
+            this.position.x,
+            this.position.y,
+            (this.image.width / this.framesMax) * this.scale,
             this.image.height * this.scale
-            );
+        );
 
     }
     update() {

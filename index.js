@@ -17,20 +17,18 @@ const background = new Sprite({
     x: 0,
     y: 0,
   },
-  imageSrc: 'assets/background.png'
-
-})
+  imageSrc: "assets/background.png",
+});
 
 const shop = new Sprite({
   position: {
     x: 600,
     y: 128,
   },
-  imageSrc: 'assets/shop.png',
+  imageSrc: "assets/shop.png",
   scale: 2.75,
-  framesMax: 6
-})
-
+  framesMax: 6,
+});
 
 //! Creating model objects for both players and enemies
 //! Creating player object with default values for {Velocity, Position and offset}
@@ -150,7 +148,6 @@ function animate() {
 animate();
 
 // ! Making player and enemies capable of movement using [addEventListener] functions on key pressed and release
-
 //* Pressed keys
 window.addEventListener("keydown", (event) => {
   switch (event.key) {
